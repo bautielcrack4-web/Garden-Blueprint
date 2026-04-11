@@ -85,11 +85,10 @@ export default function LandingPage() {
                 className="relative w-[160px] aspect-[3/4] rounded-lg overflow-hidden book-shadow border-l-4 border-black/20"
               >
                 <Image 
-                  src="https://fv5-4.files.fm/thumb_show.php?i=jnrkuwgtq7&view&v=1" 
+                  src="/portada.png.png" 
                   alt="Pest-Free Garden Blueprint"
                   fill
                   className="object-cover"
-                  referrerPolicy="no-referrer"
                 />
               </motion.div>
             </div>
@@ -146,11 +145,10 @@ export default function LandingPage() {
               >
                 <div className="relative w-full max-w-[450px] aspect-[3/4] rounded-r-lg overflow-hidden book-shadow border-l-4 border-black/20">
                   <Image 
-                    src="https://fv5-4.files.fm/thumb_show.php?i=jnrkuwgtq7&view&v=1" 
+                    src="/portada.png.png" 
                     alt="Pest-Free Garden Blueprint"
                     fill
                     className="object-cover"
-                    referrerPolicy="no-referrer"
                   />
                 </div>
               </motion.div>
