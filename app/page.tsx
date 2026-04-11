@@ -14,8 +14,10 @@ import {
   AlertTriangle, 
   CheckCircle2,
   Lock,
-  Mail
+  Mail,
+  Globe
 } from 'lucide-react';
+import { translations, Language } from '@/lib/i18n';
 
 // --- Components ---
 
@@ -65,8 +67,41 @@ const FAQItem = ({ question, answer }: { question: string, answer: string }) => 
 // --- Main Page ---
 
 export default function LandingPage() {
+  const [lang, setLang] = React.useState<Language>('en');
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+    const browserLang = navigator.language.toLowerCase();
+    if (browserLang.startsWith('es')) {
+      setLang('es');
+    } else if (browserLang.startsWith('pt')) {
+      setLang('pt');
+    } else {
+      setLang('en');
+    }
+  }, []);
+
+  const t = translations[lang];
+
+  if (!mounted) return null; // Prevent hydration mismatch
+
   return (
     <main className="min-h-screen">
+      {/* LANGUAGE SELECTOR */}
+      <div className="absolute top-4 right-4 z-50 flex items-center gap-2 bg-black/20 backdrop-blur-md rounded-full px-3 py-1.5 border border-white/10">
+        <Globe className="w-4 h-4 text-white/70" />
+        <select 
+          value={lang}
+          onChange={(e) => setLang(e.target.value as Language)}
+          className="bg-transparent text-white/90 text-sm font-medium outline-none cursor-pointer appearance-none pr-4"
+        >
+          <option value="en" className="text-black">English</option>
+          <option value="es" className="text-black">Español</option>
+          <option value="pt" className="text-black">Português</option>
+        </select>
+      </div>
+
       {/* HERO SECTION */}
       <section className="relative bg-[#2d4a3e] text-white pt-8 pb-12 lg:pt-20 lg:pb-32 overflow-hidden">
         {/* Subtle gradient overlay for depth */}
@@ -105,21 +140,21 @@ export default function LandingPage() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="flex flex-col items-center lg:items-start"
               >
-                <Badge icon={Leaf}>From Bagasy Studio</Badge>
+                <Badge icon={Leaf}>{t.hero.badge}</Badge>
                 <h1 className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold leading-[1.05] tracking-tight mb-3 lg:mb-8 mt-4 lg:mt-0">
-                  The 30-Day <br className="hidden lg:block" />
-                  <span className="text-[#4ade80]">Pest-Free</span> <br className="hidden lg:block" />
-                  Garden Blueprint
+                  {t.hero.title1} <br className="hidden lg:block" />
+                  <span className="text-[#4ade80]">{t.hero.titleHighlight}</span> <br className="hidden lg:block" />
+                  {t.hero.title2}
                 </h1>
                 <p className="text-base md:text-xl lg:text-2xl text-white/90 mb-5 lg:mb-12 leading-relaxed font-light max-w-xl">
-                  &quot;The Complete Old-World System for a Garden That Defends Itself — No Chemicals, No Expensive Treatments, Just Proven Wisdom&quot;
+                  {t.hero.subtitle}
                 </p>
 
                 <div className="flex items-center justify-center lg:justify-start gap-3 lg:gap-4 mb-5 lg:mb-8">
                   <div className="text-4xl lg:text-5xl font-bold">$17</div>
                   <div className="text-lg lg:text-2xl text-white/40 line-through">$47</div>
                   <div className="px-3 py-1 lg:px-4 rounded-full bg-[#4ade80]/20 text-[#4ade80] text-[10px] lg:text-sm font-bold border border-[#4ade80]/30 uppercase tracking-wider">
-                    SAVE $30
+                    {t.hero.save}
                   </div>
                 </div>
 
@@ -128,13 +163,13 @@ export default function LandingPage() {
                     onClick={() => window.open('https://pay.hotmart.com/K105341448U', '_blank')}
                     className="w-full bg-[#4ade80] hover:bg-[#3ecb71] text-[#1a2e26] font-black text-lg lg:text-xl py-4 lg:py-6 rounded-xl lg:rounded-2xl flex items-center justify-center gap-2 lg:gap-3 transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#4ade80]/20"
                   >
-                    Get Instant Access Now <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6" />
+                    {t.hero.cta} <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6" />
                   </button>
                 </div>
                 
                 <div className="flex items-center gap-2 text-xs lg:text-sm text-white/60 justify-center lg:justify-start">
                   <Lock className="w-3 h-3 lg:w-4 lg:h-4" />
-                  <span>Protected by Hotmart</span>
+                  <span>{t.hero.protected}</span>
                 </div>
               </motion.div>
             </div>
@@ -170,34 +205,32 @@ export default function LandingPage() {
       <section className="py-32 bg-[#fdfbf7]">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto mb-20">
-            <h2 className="text-5xl md:text-6xl font-serif font-bold text-[#1a2e26] mb-8 tracking-tight">Tired of Losing Your Garden to Pests?</h2>
-            <p className="text-2xl text-[#4a5a54] font-light">Every year, millions of home gardeners watch helplessly as their hard work gets destroyed. Sound familiar?</p>
+            <h2 className="text-5xl md:text-6xl font-serif font-bold text-[#1a2e26] mb-8 tracking-tight">{t.problems.h2}</h2>
+            <p className="text-2xl text-[#4a5a54] font-light">{t.problems.p}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <ProblemCard text="You plant everything perfectly, then aphids, beetles, or slugs destroy it overnight" />
-            <ProblemCard text="Chemical pesticides worry you — you don't want poison near your food or family" />
-            <ProblemCard text="You've tried 'natural' solutions from the internet that simply don't work" />
-            <ProblemCard text="You spend hundreds on products that promise results but deliver nothing" />
-            <ProblemCard text="Your neighbors' gardens thrive while yours gets eaten alive" />
-            <ProblemCard text="You're ready to give up on growing your own food entirely" />
+            <ProblemCard text={t.problems.p1} />
+            <ProblemCard text={t.problems.p2} />
+            <ProblemCard text={t.problems.p3} />
+            <ProblemCard text={t.problems.p4} />
+            <ProblemCard text={t.problems.p5} />
+            <ProblemCard text={t.problems.p6} />
           </div>
         </div>
       </section>
 
-      {/* THERE&apos;S A BETTER WAY SECTION */}
+      {/* THERE'S A BETTER WAY SECTION */}
       <section className="py-32 bg-white">
         <div className="container mx-auto px-6 text-center max-w-5xl">
-          <SectionBadge icon={CheckCircle2}>There&apos;s a Better Way</SectionBadge>
+          <SectionBadge icon={CheckCircle2}>{t.betterWay.badge}</SectionBadge>
           <h2 className="text-5xl md:text-7xl font-serif font-bold text-[#1a2e26] mb-12 tracking-tight">
-            What If Your Garden Could <span className="text-[#2d4a3e]">Defend Itself?</span>
+            {t.betterWay.h2_1} <span className="text-[#2d4a3e]">{t.betterWay.h2_span}</span>
           </h2>
           <div className="space-y-10 text-2xl text-[#4a5a54] leading-relaxed font-light">
-            <p>
-              &quot;For over 300 years, Amish communities have grown abundant, pest-free gardens without a single drop of chemical pesticide. Their secret? A complete system of companion planting, natural barriers, and time-tested techniques passed down through generations.&quot;
-            </p>
+            <p>{t.betterWay.p1}</p>
             <p className="font-bold text-[#1a2e26] text-3xl">
-              Bagasy Studio compiled years of research into these methods and created a simple, actionable 30-day protocol that anyone can follow — even if you&apos;ve never gardened before.
+              {t.betterWay.p2}
             </p>
           </div>
         </div>
@@ -207,40 +240,40 @@ export default function LandingPage() {
       <section className="py-32 bg-[#fdfbf7]">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto mb-20">
-            <h2 className="text-5xl md:text-6xl font-serif font-bold text-[#1a2e26] mb-8 tracking-tight">What&apos;s Inside the Blueprint</h2>
-            <p className="text-2xl text-[#4a5a54] font-light">33 pages of actionable, step-by-step guidance with visual diagrams</p>
+            <h2 className="text-5xl md:text-6xl font-serif font-bold text-[#1a2e26] mb-8 tracking-tight">{t.inside.h2}</h2>
+            <p className="text-2xl text-[#4a5a54] font-light">{t.inside.p}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card 
               icon={Clock}
-              title="Day-by-Day 30-Day Action Plan"
-              description="No guessing. Follow the exact steps each day to transform your garden into a pest-proof fortress."
+              title={t.inside.c1_title}
+              description={t.inside.c1_desc}
             />
             <Card 
               icon={Leaf}
-              title="Companion Planting Maps"
-              description="Exact visual layouts for small (4×8 ft) and medium (10×20 ft) gardens showing precisely what to plant where with spacing measurements."
+              title={t.inside.c2_title}
+              description={t.inside.c2_desc}
             />
             <Card 
               icon={ShieldCheck}
-              title="5 Natural Spray Recipes"
-              description="Homemade deterrents using garlic, hot peppers, and kitchen ingredients. No store runs, no expensive products."
+              title={t.inside.c3_title}
+              description={t.inside.c3_desc}
             />
             <Card 
               icon={Search}
-              title="Pest Identification Guide"
-              description="Visual chart of the 8 most common garden pests with illustrated identification and the specific remedy for each one."
+              title={t.inside.c4_title}
+              description={t.inside.c4_desc}
             />
             <Card 
               icon={Sprout}
-              title="Soil Preparation Methods"
-              description="Build soil so healthy that plants naturally resist disease and pest damage on their own. Includes compost layering guide."
+              title={t.inside.c5_title}
+              description={t.inside.c5_desc}
             />
             <Card 
               icon={AlertTriangle}
-              title="Emergency Pest Response"
-              description="Already have a pest problem? Follow the decision flowchart to identify the threat and apply the right remedy immediately."
+              title={t.inside.c6_title}
+              description={t.inside.c6_desc}
             />
           </div>
         </div>
@@ -250,19 +283,19 @@ export default function LandingPage() {
       <section className="py-32 bg-white overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto mb-20">
-            <h2 className="text-5xl md:text-6xl font-serif font-bold text-[#1a2e26] mb-8 tracking-tight">What to Expect Week by Week</h2>
+            <h2 className="text-5xl md:text-6xl font-serif font-bold text-[#1a2e26] mb-8 tracking-tight">{t.weeks.h2}</h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
             {[
-              { week: "1", title: "Foundation", desc: "Set up your companion planting layout and natural barriers. Pest activity starts to decrease as you implement the first deterrents." },
-              { week: "2", title: "Activation", desc: "Your garden's natural defense system kicks in. Beneficial insects arrive, soil health improves, and pest pressure drops noticeably." },
-              { week: "3", title: "Protection", desc: "Your plants are visibly healthier and stronger. Neighbors start asking what you're doing differently. Pest damage is minimal." },
-              { week: "4", title: "Fortress", desc: "Your garden is now a self-defending ecosystem. Pests avoid it naturally. You harvest more food than ever — completely chemical-free." }
+              { week: "1", title: t.weeks.w1_title, desc: t.weeks.w1_desc },
+              { week: "2", title: t.weeks.w2_title, desc: t.weeks.w2_desc },
+              { week: "3", title: t.weeks.w3_title, desc: t.weeks.w3_desc },
+              { week: "4", title: t.weeks.w4_title, desc: t.weeks.w4_desc }
             ].map((item, idx) => (
               <div key={idx} className="relative p-10 rounded-3xl bg-[#fdfbf7] border border-[#e0e0e0] shadow-sm hover:shadow-lg transition-all">
                 <div className="text-7xl font-serif font-black text-[#2d4a3e]/10 absolute top-4 right-6">{item.week}</div>
-                <h3 className="text-2xl font-bold text-[#1a2e26] mb-6">Week {item.week}: {item.title}</h3>
+                <h3 className="text-2xl font-bold text-[#1a2e26] mb-6">{t.weeks.prefix} {item.week}: {item.title}</h3>
                 <p className="text-lg text-[#4a5a54] leading-relaxed font-light">{item.desc}</p>
               </div>
             ))}
@@ -273,31 +306,31 @@ export default function LandingPage() {
       {/* FAQ SECTION */}
       <section className="py-24 bg-[#fdfbf7]">
         <div className="container mx-auto px-6 max-w-3xl">
-          <h2 className="text-4xl font-serif font-bold text-[#1a2e26] mb-12 text-center">Frequently Asked Questions</h2>
+          <h2 className="text-4xl font-serif font-bold text-[#1a2e26] mb-12 text-center">{t.faq.h2}</h2>
           <div className="space-y-2">
             <FAQItem 
-              question="Will this work in my climate zone?" 
-              answer="Yes. The guide includes specific timing adjustments for Zones 3 through 9, covering everything from short northern seasons to hot southern climates."
+              question={t.faq.q1} 
+              answer={t.faq.a1}
             />
             <FAQItem 
-              question="I'm a complete beginner. Is this too advanced?" 
-              answer="Not at all. The 30-day plan tells you exactly what to do each day, step by step. No prior experience needed."
+              question={t.faq.q2} 
+              answer={t.faq.a2}
             />
             <FAQItem 
-              question="How is this different from other gardening books?" 
-              answer="Most books give you tips. This gives you a complete interconnected system — 6 pillars that work together — plus visual planting maps and diagrams you won't find anywhere else."
+              question={t.faq.q3} 
+              answer={t.faq.a3}
             />
             <FAQItem 
-              question="What format is the ebook?" 
-              answer="PDF. Instant digital download that works on any phone, tablet, or computer."
+              question={t.faq.q4} 
+              answer={t.faq.a4}
             />
             <FAQItem 
-              question="I already have a pest problem. Will this help?" 
-              answer="Yes. Chapter 10 is a dedicated emergency response protocol with a visual flowchart for immediate action."
+              question={t.faq.q5} 
+              answer={t.faq.a5}
             />
             <FAQItem 
-              question="Do I need to buy any special products?" 
-              answer="No. Everything uses common seeds, kitchen ingredients you already have, and free materials like cardboard rolls."
+              question={t.faq.q6} 
+              answer={t.faq.a6}
             />
           </div>
         </div>
@@ -307,17 +340,17 @@ export default function LandingPage() {
       <section className="py-24 bg-[#2d4a3e] text-white relative overflow-hidden">
         <div className="absolute inset-0 hero-grid opacity-10" />
         <div className="container mx-auto px-6 relative z-10 text-center max-w-3xl">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">Start Growing a Pest-Free Garden Today</h2>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">{t.cta.h2}</h2>
           <div className="text-xl text-white/80 mb-12 space-y-6">
-            <p>You have two choices right now:</p>
+            <p>{t.cta.p1}</p>
             <div className="text-left space-y-4 max-w-xl mx-auto">
               <p className="flex gap-3">
-                <span className="font-bold text-[#4ade80]">Option 1:</span> 
-                Keep fighting pests with chemicals and expensive products that don&apos;t work long-term.
+                <span className="font-bold text-[#4ade80]">{t.cta.opt1_title}</span> 
+                {t.cta.opt1_desc}
               </p>
               <p className="flex gap-3">
-                <span className="font-bold text-[#4ade80]">Option 2:</span> 
-                Give your garden 30 days with this proven system and watch it transform into a self-defending ecosystem.
+                <span className="font-bold text-[#4ade80]">{t.cta.opt2_title}</span> 
+                {t.cta.opt2_desc}
               </p>
             </div>
           </div>
@@ -327,7 +360,7 @@ export default function LandingPage() {
               <div className="text-5xl font-bold">$17</div>
               <div className="text-2xl text-white/30 line-through">$47</div>
               <div className="px-4 py-1 rounded-full bg-[#4ade80] text-[#1a2e26] text-sm font-black uppercase tracking-wider">
-                LAUNCH PRICE
+                {t.cta.launch_price}
               </div>
             </div>
             
@@ -335,18 +368,18 @@ export default function LandingPage() {
               onClick={() => window.open('https://pay.hotmart.com/K105341448U', '_blank')}
               className="w-full bg-[#4ade80] hover:bg-[#3ecb71] text-[#1a2e26] font-black text-xl py-6 rounded-2xl flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02] active:scale-[0.98] mb-6 shadow-xl shadow-[#4ade80]/20"
             >
-              Get Instant Access <ArrowRight className="w-6 h-6" />
+              {t.cta.btn} <ArrowRight className="w-6 h-6" />
             </button>
             
             <div className="flex items-center justify-center gap-6 text-sm text-white/60">
               <div className="flex items-center gap-2">
                 <Lock className="w-4 h-4" />
-                <span>Secure Stripe Checkout</span>
+                <span>{t.cta.secure}</span>
               </div>
               <div className="w-1 h-1 bg-white/20 rounded-full" />
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <span>Instant Email Delivery</span>
+                <span>{t.cta.instant}</span>
               </div>
             </div>
           </div>
@@ -357,7 +390,7 @@ export default function LandingPage() {
       <footer className="py-12 bg-[#fdfbf7] border-t border-[#e0e0e0]">
         <div className="container mx-auto px-6 text-center">
           <p className="text-sm font-serif font-bold tracking-widest text-[#2d4a3e] mb-4">BAGASY STUDIO</p>
-          <p className="text-xs text-[#4a5a54]/60">© 2026 Bagasy Studio. All rights reserved. <br className="sm:hidden" /> Gardening results vary by location and care.</p>
+          <p className="text-xs text-[#4a5a54]/60">{t.footer.rights} <br className="sm:hidden" /> {t.footer.disclaimer}</p>
         </div>
       </footer>
     </main>
