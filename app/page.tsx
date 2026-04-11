@@ -71,24 +71,28 @@ export default function LandingPage() {
       <section className="relative bg-[#2d4a3e] text-white pt-8 pb-12 lg:pt-20 lg:pb-32 overflow-hidden">
         {/* Subtle gradient overlay for depth */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#2d4a3e]/80 to-[#1a2e26]/90" />
-        <div className="absolute inset-0 hero-grid opacity-10" />
+        <div className="absolute inset-0 hero-grid opacity-30" />
         
         <div className="container mx-auto px-4 lg:px-6 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-16">
             
             {/* MOBILE ONLY: Book Mockup (Top) */}
-            <div className="block lg:hidden w-full flex justify-center">
+            <div className="block lg:hidden w-full flex justify-center relative">
+              {/* Glamour Glow Mobile */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-[#4ade80]/40 rounded-full blur-[70px] pointer-events-none" />
+              
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
-                className="relative w-[160px] aspect-[3/4] rounded-lg overflow-hidden book-shadow border-l-4 border-black/20"
+                className="relative w-[160px] aspect-[3/4] rounded-lg overflow-hidden book-shadow border-l-4 border-black/20 z-10"
               >
                 <Image 
-                  src="/portada.png.png" 
+                  src="https://fv5-4.files.fm/thumb_show.php?i=jnrkuwgtq7&view&v=1" 
                   alt="Pest-Free Garden Blueprint"
                   fill
                   className="object-cover"
+                  referrerPolicy="no-referrer"
                 />
               </motion.div>
             </div>
@@ -137,6 +141,9 @@ export default function LandingPage() {
 
             {/* DESKTOP ONLY: Book Mockup (Right) */}
             <div className="hidden lg:block flex-1 relative">
+              {/* Glamour Glow Desktop */}
+              <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[450px] h-[450px] bg-[#4ade80]/30 rounded-full blur-[120px] pointer-events-none" />
+              
               <motion.div
                 initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -145,16 +152,14 @@ export default function LandingPage() {
               >
                 <div className="relative w-full max-w-[450px] aspect-[3/4] rounded-r-lg overflow-hidden book-shadow border-l-4 border-black/20">
                   <Image 
-                    src="/portada.png.png" 
+                    src="https://fv5-4.files.fm/thumb_show.php?i=jnrkuwgtq7&view&v=1" 
                     alt="Pest-Free Garden Blueprint"
                     fill
                     className="object-cover"
+                    referrerPolicy="no-referrer"
                   />
                 </div>
               </motion.div>
-              {/* Decorative elements */}
-              <div className="absolute -top-10 -right-10 w-64 h-64 bg-[#4ade80]/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[#4ade80]/5 rounded-full blur-3xl" />
             </div>
 
           </div>
