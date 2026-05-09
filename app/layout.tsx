@@ -13,8 +13,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'Bagasy Studio - Pest-Free Garden Blueprint',
-  description: 'The Complete Old-World System for a Garden That Defends Itself',
+  title: 'BAGASY STUDIO | El Método del Viejo Mundo para un Huerto sin Plagas',
+  description: 'Libera tu huerto de plagas sin químicos. El sistema completo para un jardín que se defiende solo.',
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
