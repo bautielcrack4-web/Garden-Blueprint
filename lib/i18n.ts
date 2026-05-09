@@ -8,9 +8,9 @@ export const translations = {
       titleHighlight: "Pest-Free",
       title2: "Garden Blueprint",
       subtitle: "\"The Complete Old-World System for a Garden That Defends Itself — No Chemicals, No Expensive Treatments, Just Proven Wisdom\"",
-      save: "SAVE $30",
+      save: "SAVE $27",
       cta: "Get Instant Access Now",
-      protected: "Protected by Hotmart"
+      protected: "Secure Checkout"
     },
     problems: {
       h2: "Tired of Losing Your Garden to Pests?",
@@ -81,8 +81,8 @@ export const translations = {
       opt2_desc: "Give your garden 30 days with this proven system and watch it transform into a self-defending ecosystem.",
       launch_price: "LAUNCH PRICE",
       btn: "Get Instant Access",
-      secure: "Secure Stripe Checkout",
-      instant: "Instant Email Delivery"
+      secure: "Secure Payment",
+      instant: "Instant Delivery"
     },
     footer: {
       rights: "© 2026 Bagasy Studio. All rights reserved.",
@@ -96,9 +96,9 @@ export const translations = {
       titleHighlight: "Jardín Sin Plagas",
       title2: "",
       subtitle: "\"El sistema completo del viejo mundo para un jardín que se defiende solo — Sin químicos, sin tratamientos caros, solo sabiduría comprobada\"",
-      save: "AHORRA $30",
+      save: "AHORRA $27",
       cta: "Obtener Acceso Inmediato",
-      protected: "Protegido por Hotmart"
+      protected: "Protección Garantizada"
     },
     problems: {
       h2: "¿Cansado de perder tu jardín por las plagas?",
@@ -169,8 +169,8 @@ export const translations = {
       opt2_desc: "Darle a tu jardín 30 días con este sistema comprobado y ver cómo se transforma en un ecosistema que se defiende solo.",
       launch_price: "PRECIO DE LANZAMIENTO",
       btn: "Obtener Acceso Inmediato",
-      secure: "Pago Seguro con Stripe",
-      instant: "Entrega Inmediata por Email"
+      secure: "Pago Seguro",
+      instant: "Entrega Inmediata"
     },
     footer: {
       rights: "© 2026 Bagasy Studio. Todos los derechos reservados.",
@@ -184,9 +184,9 @@ export const translations = {
       titleHighlight: "Jardim Sem Pragas",
       title2: "",
       subtitle: "\"O sistema completo do velho mundo para um jardim que se defende sozinho — Sem produtos químicos, sem tratamentos caros, apenas sabedoria comprovada\"",
-      save: "ECONOMIZE $30",
+      save: "ECONOMIZE $27",
       cta: "Garantir Meu Acesso Agora",
-      protected: "Protegido pela Hotmart"
+      protected: "Proteção Garantida"
     },
     problems: {
       h2: "Cansado de perder seu jardim para as pragas?",
@@ -257,8 +257,8 @@ export const translations = {
       opt2_desc: "Dê ao seu jardim 30 dias com este sistema comprovado e veja-o se transformar em um ecossistema que se defende sozinho.",
       launch_price: "PREÇO DE LANÇAMENTO",
       btn: "Garantir Meu Acesso",
-      secure: "Pagamento Seguro via Stripe",
-      instant: "Entrega Imediata por Email"
+      secure: "Pagamento Seguro",
+      instant: "Entrega Imediata"
     },
     footer: {
       rights: "© 2026 Bagasy Studio. Todos os direitos reservados.",

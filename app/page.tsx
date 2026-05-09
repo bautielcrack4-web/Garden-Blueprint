@@ -67,19 +67,26 @@ const FAQItem = ({ question, answer }: { question: string, answer: string }) => 
 // --- Main Page ---
 
 export default function LandingPage() {
-  const [lang, setLang] = React.useState<Language>('en');
+  const [lang, setLang] = React.useState<Language>('es');
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
-    setMounted(true);
+    // Determine language once on client
     const browserLang = navigator.language.toLowerCase();
-    if (browserLang.startsWith('es')) {
-      setLang('es');
-    } else if (browserLang.startsWith('pt')) {
-      setLang('pt');
-    } else {
-      setLang('en');
-    }
+    
+    // Set state in a way that minimizes cascading renders (async)
+    const timer = setTimeout(() => {
+      setMounted(true);
+      if (browserLang.startsWith('es')) {
+        setLang('es');
+      } else if (browserLang.startsWith('pt')) {
+        setLang('pt');
+      } else {
+        setLang('en');
+      }
+    }, 0);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   const t = translations[lang];
@@ -128,6 +135,7 @@ export default function LandingPage() {
                   fill
                   className="object-cover"
                   referrerPolicy="no-referrer"
+                  priority
                 />
               </motion.div>
             </div>
@@ -151,8 +159,8 @@ export default function LandingPage() {
                 </p>
 
                 <div className="flex items-center justify-center lg:justify-start gap-3 lg:gap-4 mb-5 lg:mb-8">
-                  <div className="text-4xl lg:text-5xl font-bold">$17</div>
-                  <div className="text-lg lg:text-2xl text-white/40 line-through">$47</div>
+                  <div className="text-4xl lg:text-5xl font-bold">$12.99</div>
+                  <div className="text-lg lg:text-2xl text-white/40 line-through">$39.99</div>
                   <div className="px-3 py-1 lg:px-4 rounded-full bg-[#4ade80]/20 text-[#4ade80] text-[10px] lg:text-sm font-bold border border-[#4ade80]/30 uppercase tracking-wider">
                     {t.hero.save}
                   </div>
@@ -160,7 +168,7 @@ export default function LandingPage() {
 
                 <div className="w-full max-w-md lg:max-w-none flex flex-col gap-3 mb-4 lg:mb-8">
                   <button 
-                    onClick={() => window.open('https://pay.hotmart.com/K105341448U', '_blank')}
+                    onClick={() => window.open('https://elprota.gumroad.com/l/jardinsinplagas?wanted=true', '_blank')}
                     className="w-full bg-[#4ade80] hover:bg-[#3ecb71] text-[#1a2e26] font-black text-lg lg:text-xl py-4 lg:py-6 rounded-xl lg:rounded-2xl flex items-center justify-center gap-2 lg:gap-3 transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#4ade80]/20"
                   >
                     {t.hero.cta} <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6" />
@@ -192,6 +200,7 @@ export default function LandingPage() {
                     fill
                     className="object-cover"
                     referrerPolicy="no-referrer"
+                    priority
                   />
                 </div>
               </motion.div>
@@ -357,15 +366,15 @@ export default function LandingPage() {
 
           <div className="bg-white/5 border border-white/10 rounded-3xl p-10 backdrop-blur-md">
             <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="text-5xl font-bold">$17</div>
-              <div className="text-2xl text-white/30 line-through">$47</div>
+              <div className="text-5xl font-bold">$12.99</div>
+              <div className="text-2xl text-white/30 line-through">$39.99</div>
               <div className="px-4 py-1 rounded-full bg-[#4ade80] text-[#1a2e26] text-sm font-black uppercase tracking-wider">
                 {t.cta.launch_price}
               </div>
             </div>
             
             <button 
-              onClick={() => window.open('https://pay.hotmart.com/K105341448U', '_blank')}
+              onClick={() => window.open('https://elprota.gumroad.com/l/jardinsinplagas?wanted=true', '_blank')}
               className="w-full bg-[#4ade80] hover:bg-[#3ecb71] text-[#1a2e26] font-black text-xl py-6 rounded-2xl flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02] active:scale-[0.98] mb-6 shadow-xl shadow-[#4ade80]/20"
             >
               {t.cta.btn} <ArrowRight className="w-6 h-6" />
