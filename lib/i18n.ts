@@ -87,6 +87,9 @@ export const translations = {
     footer: {
       rights: "© 2026 Bagasy Studio. All rights reserved.",
       disclaimer: "Gardening results vary by location and care."
+    },
+    testimonials: {
+      h2: "Real Results from Real Gardeners"
     }
   },
   es: {
@@ -175,6 +178,9 @@ export const translations = {
     footer: {
       rights: "© 2026 Bagasy Studio. Todos los derechos reservados.",
       disclaimer: "Los resultados de jardinería varían según la ubicación y el cuidado."
+    },
+    testimonials: {
+      h2: "Resultados Reales de Jardineros Reales"
     }
   },
   pt: {
@@ -263,6 +269,9 @@ export const translations = {
     footer: {
       rights: "© 2026 Bagasy Studio. Todos os direitos reservados.",
       disclaimer: "Os resultados de jardinagem variam de acordo com a localização e os cuidados."
+    },
+    testimonials: {
+      h2: "Resultados Reais de Jardineiros Reais"
     }
   }
 } as const;

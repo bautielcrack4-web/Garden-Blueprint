@@ -57,6 +57,80 @@ const ProblemCard = ({ text }: { text: string }) => (
   </div>
 );
 
+const TestimonialCarousel = () => {
+  const testimonials = [
+    { src: "https://i.postimg.cc/LsqK1nFt/file-00000000d008720e8b3ce96dca49c97d.png", alt: "Carlos R." },
+    { src: "https://i.postimg.cc/pLcMrK4F/file-00000000e07871f59e709d826df9697d.png", alt: "María G." },
+    { src: "https://i.postimg.cc/0yX1j7Fp/file-00000000e81c720e85eee922ebfa830d.png", alt: "Lucía M." },
+  ];
+
+  // For infinite scroll, we duplicate the items
+  const duplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials, ...testimonials];
+
+  return (
+    <div className="relative w-full overflow-hidden py-16 bg-[#fdfbf7]">
+      <div className="flex justify-center mb-16">
+        <div className="flex gap-2">
+          {[...Array(5)].map((_, i) => (
+            <CheckCircle2 key={i} className="w-8 h-8 text-[#4ade80]" fill="currentColor" />
+          ))}
+        </div>
+      </div>
+      
+      <div className="flex items-center" style={{ perspective: "1500px" }}>
+        <motion.div 
+          className="flex gap-10 px-4"
+          animate={{
+            x: [0, -1800], // Adjust based on card width + gap
+          }}
+          transition={{
+            duration: 40,
+            ease: "linear",
+            repeat: Infinity,
+          }}
+          style={{
+            width: "max-content",
+            transformStyle: "preserve-3d"
+          }}
+        >
+          {duplicatedTestimonials.map((item, idx) => (
+            <motion.div
+              key={idx}
+              className="relative w-[320px] md:w-[450px] aspect-square rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-white/20 shrink-0 bg-white"
+              whileHover={{ 
+                scale: 1.05, 
+                rotateY: 10,
+                z: 50,
+                transition: { duration: 0.3 }
+              }}
+              style={{
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <Image 
+                src={item.src} 
+                alt={item.alt}
+                fill
+                className="object-cover"
+                referrerPolicy="no-referrer"
+                priority={idx < 4}
+              />
+              {/* 3D Glassy effect overlay */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/30 via-transparent to-white/10 pointer-events-none" />
+              {/* Depth shadow */}
+              <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.2)] pointer-events-none" />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Fade edges */}
+      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#fdfbf7] to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#fdfbf7] to-transparent z-10 pointer-events-none" />
+    </div>
+  );
+};
+
 const FAQItem = ({ question, answer }: { question: string, answer: string }) => (
   <div className="py-6 border-b border-[#e0e0e0]">
     <h4 className="text-lg font-bold text-[#1a2e26] mb-2">{question}</h4>
@@ -115,6 +189,15 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#2d4a3e]/80 to-[#1a2e26]/90" />
         <div className="absolute inset-0 hero-grid opacity-30" />
         
+        <div className="container mx-auto px-4 lg:px-6 relative z-10 mb-8 lg:mb-16">
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-[#4ade80] rounded-xl flex items-center justify-center text-[#1a2e26]">
+              <Sprout className="w-6 h-6" />
+            </div>
+            <span className="text-xl font-serif font-bold tracking-tight">BAGASY STUDIO</span>
+          </div>
+        </div>
+
         <div className="container mx-auto px-4 lg:px-6 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-16">
             
@@ -127,16 +210,17 @@ export default function LandingPage() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
-                className="relative w-[160px] aspect-[3/4] rounded-lg overflow-hidden book-shadow border-l-4 border-black/20 z-10"
+                className="relative w-[210px] aspect-square rounded-lg overflow-hidden shadow-2xl z-10"
               >
                 <Image 
-                  src="https://fv5-4.files.fm/thumb_show.php?i=jnrkuwgtq7&view&v=1" 
+                  src="https://i.postimg.cc/K8phjtwP/file-00000000e23c71f5b0bc5198ff18234f.png" 
                   alt="Pest-Free Garden Blueprint"
                   fill
                   className="object-cover"
                   referrerPolicy="no-referrer"
                   priority
                 />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent pointer-events-none" />
               </motion.div>
             </div>
 
@@ -189,19 +273,22 @@ export default function LandingPage() {
               
               <motion.div
                 initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
+                whileHover={{ rotate: -2, scale: 1.02 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="relative z-20 flex justify-end"
               >
-                <div className="relative w-full max-w-[450px] aspect-[3/4] rounded-r-lg overflow-hidden book-shadow border-l-4 border-black/20">
+                <div className="relative w-full max-w-[420px] aspect-square rounded-xl overflow-hidden shadow-[25px_25px_50px_-12px_rgba(0,0,0,0.5)]">
                   <Image 
-                    src="https://fv5-4.files.fm/thumb_show.php?i=jnrkuwgtq7&view&v=1" 
+                    src="https://i.postimg.cc/K8phjtwP/file-00000000e23c71f5b0bc5198ff18234f.png" 
                     alt="Pest-Free Garden Blueprint"
                     fill
                     className="object-cover"
                     referrerPolicy="no-referrer"
                     priority
                   />
+                  {/* Glass lighting effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-transparent to-black/10 pointer-events-none" />
                 </div>
               </motion.div>
             </div>
@@ -243,6 +330,14 @@ export default function LandingPage() {
             </p>
           </div>
         </div>
+      </section>
+
+      {/* TESTIMONIALS SECTION */}
+      <section className="py-24 bg-[#fdfbf7] overflow-hidden">
+        <div className="container mx-auto px-6 mb-16 text-center">
+          <h2 className="text-4xl md:text-6xl font-serif font-bold text-[#1a2e26] tracking-tight">{t.testimonials.h2}</h2>
+        </div>
+        <TestimonialCarousel />
       </section>
 
       {/* WHAT'S INSIDE SECTION */}
